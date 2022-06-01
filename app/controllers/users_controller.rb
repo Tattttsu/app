@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
    include SessionsHelper
     before_action :logged_in_user, only: [:edit, :update]
+    before_action :correct_user,   only: [:edit, :update]
     
     
   def new
@@ -11,7 +12,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @index = User.all
+    @users = User.paginate(page: params[:page])
   end
   
   def show
@@ -52,6 +53,8 @@ class UsersController < ApplicationController
     #beforeアクション　
     def logged_in_user
       unless logged_in?
+      store_location
+        
       flash[:danger] = "log inしてください"
       redirect_to login_url
       end

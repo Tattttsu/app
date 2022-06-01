@@ -1,9 +1,13 @@
 <ul class="users"> 
-<% @index.each do |user| %>
+
+<%= will_paginate %>
+<% @users.each do |user| %>
 
 <li> 
 <%=user.name %>  E-MAIL　<%=user.email %>  RANK <%=user.rank %>
 </li>
 <% end %>
+
+<%= will_paginate %>
 </ul>
 
